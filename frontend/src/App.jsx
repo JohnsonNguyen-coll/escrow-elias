@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useAccount } from 'wagmi'
 import Header from './components/Header'
-import WalletConnect from './components/WalletConnect'
 import CreateEscrow from './components/CreateEscrow'
 import EscrowList from './components/EscrowList'
 import AdminPanel from './components/AdminPanel'
@@ -28,8 +27,10 @@ function App() {
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
               Secure escrow service on Arc Testnet
             </p>
+            <p className="text-lg text-gray-400 mt-6">
+              Please connect your wallet to continue
+            </p>
           </div>
-          <WalletConnect />
         </div>
       </div>
     )
