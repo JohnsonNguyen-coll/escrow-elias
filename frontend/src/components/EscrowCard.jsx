@@ -83,7 +83,7 @@ export default function EscrowCard({ escrowId, address }) {
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-3">
             <h3 className="text-lg font-bold text-white">
-              Escrow #{escrowId}
+              Escrow
             </h3>
             <div className={`flex items-center gap-2 px-3 py-1.5 ${status.bgColor} border ${status.borderColor} rounded-lg`}>
               <StatusIcon className={`w-4 h-4 ${status.textColor}`} />
