@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useAccount, useReadContract } from 'wagmi'
 import { ESCROW_CONTRACT_ADDRESS, ESCROW_ABI } from '../config/contract'
 import EscrowCard from './EscrowCard'
-import { RefreshCw, AlertTriangle, Wallet, FileText } from 'lucide-react'
+import { RefreshCw, AlertTriangle, Wallet, FileText, Sparkles, TrendingUp } from 'lucide-react'
 
 const ESCROW_STATUS = {
   0: 'Pending',
@@ -65,16 +65,31 @@ export default function EscrowList() {
 
   if (!isEscrowAddressSet) {
     return (
-      <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl shadow-2xl border border-slate-700/50 p-8">
-        <div className="flex items-start gap-4">
-          <div className="p-3 bg-yellow-500/10 rounded-xl border border-yellow-500/20">
-            <AlertTriangle className="w-6 h-6 text-yellow-400" />
+      <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-3xl shadow-2xl border border-yellow-500/20 p-8">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-500/5 rounded-full blur-3xl"></div>
+        <div className="relative flex items-start gap-5">
+          <div className="relative">
+            <div className="absolute inset-0 bg-yellow-500/20 rounded-2xl blur-xl animate-pulse"></div>
+            <div className="relative p-4 bg-gradient-to-br from-yellow-500/20 to-amber-500/20 rounded-2xl border border-yellow-500/30 backdrop-blur-sm">
+              <AlertTriangle className="w-7 h-7 text-yellow-400" />
+            </div>
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-bold text-white mb-2">Configuration Required</h3>
-            <p className="text-sm text-slate-300 leading-relaxed">
-              Please set <code className="px-2 py-0.5 bg-slate-700/50 rounded text-blue-300 font-mono text-xs">VITE_ESCROW_CONTRACT_ADDRESS</code> in <code className="px-2 py-0.5 bg-slate-700/50 rounded text-blue-300 font-mono text-xs">frontend/.env</code> and reload the page.
+            <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
+              Configuration Required
+              <Sparkles className="w-4 h-4 text-yellow-400 animate-pulse" />
+            </h3>
+            <p className="text-sm text-slate-300 leading-relaxed mb-3">
+              Please configure your environment variables to continue:
             </p>
+            <div className="space-y-2">
+              <code className="block px-4 py-2.5 bg-slate-800/80 border border-slate-700/50 rounded-xl text-blue-300 font-mono text-xs">
+                VITE_ESCROW_CONTRACT_ADDRESS
+              </code>
+              <p className="text-xs text-slate-400">
+                Location: <span className="text-emerald-400">frontend/.env</span>
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -83,13 +98,20 @@ export default function EscrowList() {
 
   if (!address) {
     return (
-      <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl shadow-2xl border border-slate-700/50 p-12">
-        <div className="text-center">
-          <div className="inline-flex p-4 bg-blue-500/10 rounded-2xl border border-blue-500/20 mb-6">
-            <Wallet className="w-12 h-12 text-blue-400" />
+      <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900/20 to-slate-900 rounded-3xl shadow-2xl border border-blue-500/20 p-12">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-transparent"></div>
+        <div className="relative text-center">
+          <div className="relative inline-flex mb-6">
+            <div className="absolute inset-0 bg-blue-500/30 rounded-3xl blur-2xl animate-pulse"></div>
+            <div className="relative p-6 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-3xl border border-blue-500/30 backdrop-blur-sm">
+              <Wallet className="w-16 h-16 text-blue-400" />
+            </div>
           </div>
-          <h3 className="text-xl font-bold text-white mb-3">Connect Your Wallet</h3>
-          <p className="text-slate-400">Please connect your wallet to view and manage your escrows.</p>
+          <h3 className="text-2xl font-bold text-white mb-3 flex items-center justify-center gap-2">
+            Connect Your Wallet
+            <Sparkles className="w-5 h-5 text-blue-400" />
+          </h3>
+          <p className="text-slate-400 max-w-md mx-auto">Please connect your wallet to view and manage your escrow transactions</p>
         </div>
       </div>
     )
@@ -97,14 +119,15 @@ export default function EscrowList() {
 
   if (loading) {
     return (
-      <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl shadow-2xl border border-slate-700/50 p-12">
-        <div className="text-center">
+      <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-3xl shadow-2xl border border-slate-700/50 p-12">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/5 via-transparent to-transparent"></div>
+        <div className="relative text-center">
           <div className="relative inline-flex mb-6">
-            <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-xl"></div>
+            <div className="absolute inset-0 bg-blue-500/30 rounded-full blur-2xl animate-pulse"></div>
             <RefreshCw className="w-12 h-12 animate-spin text-blue-400 relative z-10" />
           </div>
-          <h3 className="text-lg font-semibold text-white mb-2">Loading Escrows</h3>
-          <p className="text-slate-400 text-sm">Fetching your transactions...</p>
+          <h3 className="text-xl font-bold text-white mb-2">Loading Escrows</h3>
+          <p className="text-slate-400 text-sm">Fetching your transactions from the blockchain...</p>
         </div>
       </div>
     )
@@ -112,63 +135,97 @@ export default function EscrowList() {
 
   if (error) {
     return (
-      <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl shadow-2xl border border-slate-700/50 p-8">
-        <div className="flex items-start gap-4 mb-6">
-          <div className="p-3 bg-red-500/10 rounded-xl border border-red-500/20">
-            <AlertTriangle className="w-6 h-6 text-red-400" />
+      <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-red-900/20 to-slate-900 rounded-3xl shadow-2xl border border-red-500/20 p-8">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/5 rounded-full blur-3xl"></div>
+        <div className="relative">
+          <div className="flex items-start gap-5 mb-6">
+            <div className="relative">
+              <div className="absolute inset-0 bg-red-500/20 rounded-2xl blur-xl"></div>
+              <div className="relative p-4 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-2xl border border-red-500/30 backdrop-blur-sm">
+                <AlertTriangle className="w-7 h-7 text-red-400" />
+              </div>
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-white mb-2">Failed to Load Escrows</h3>
+              <p className="text-sm text-slate-300 leading-relaxed bg-red-500/5 border border-red-500/20 rounded-xl px-4 py-3">
+                {error}
+              </p>
+            </div>
           </div>
-          <div className="flex-1">
-            <h3 className="text-lg font-bold text-white mb-2">Failed to Load Escrows</h3>
-            <p className="text-sm text-slate-300 leading-relaxed">{error}</p>
-          </div>
+          <button
+            onClick={handleRefresh}
+            className="relative group overflow-hidden px-6 py-3 bg-gradient-to-r from-slate-800 to-slate-700 hover:from-slate-700 hover:to-slate-600 border border-slate-600/50 hover:border-slate-500 rounded-xl transition-all duration-300 shadow-lg"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative flex items-center gap-2.5">
+              <RefreshCw className="w-4 h-4 text-slate-400 group-hover:text-blue-400 transition-colors" />
+              <span className="text-sm font-bold text-slate-300 group-hover:text-white transition-colors">Retry Loading</span>
+            </div>
+          </button>
         </div>
-        <button
-          onClick={handleRefresh}
-          className="flex items-center gap-2 px-5 py-2.5 bg-slate-700/50 hover:bg-slate-700 border border-slate-600/50 hover:border-slate-500 rounded-xl transition-all duration-200 group"
-        >
-          <RefreshCw className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
-          <span className="text-sm font-semibold text-slate-300 group-hover:text-white transition-colors">Retry</span>
-        </button>
       </div>
     )
   }
 
   return (
-    <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl shadow-2xl border border-slate-700/50 p-8">
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl shadow-lg">
-            <FileText className="w-5 h-5 text-white" />
+    <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-3xl shadow-2xl border border-slate-700/50">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-blue-500/5 via-transparent to-transparent"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-purple-500/5 via-transparent to-transparent"></div>
+      
+      <div className="relative p-8">
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-4">
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl blur-lg opacity-50 animate-pulse"></div>
+              <div className="relative p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl shadow-lg">
+                <FileText className="w-6 h-6 text-white" />
+              </div>
+            </div>
+            <div>
+              <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent flex items-center gap-2">
+                My Escrows
+                <Sparkles className="w-5 h-5 text-purple-400" />
+              </h2>
+              <p className="text-sm text-slate-400 mt-1 flex items-center gap-1.5">
+                <TrendingUp className="w-3.5 h-3.5" />
+                {escrowIds.length} transaction{escrowIds.length !== 1 ? 's' : ''} in total
+              </p>
+            </div>
           </div>
-          <div>
-            <h2 className="text-2xl font-bold text-white">My Escrows</h2>
-            <p className="text-sm text-slate-400 mt-0.5">{escrowIds.length} transaction{escrowIds.length !== 1 ? 's' : ''}</p>
-          </div>
+          <button
+            onClick={handleRefresh}
+            className="relative group overflow-hidden px-6 py-3 bg-gradient-to-r from-slate-800 to-slate-700 hover:from-slate-700 hover:to-slate-600 border border-slate-600/50 hover:border-slate-500 rounded-xl transition-all duration-300 shadow-lg"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative flex items-center gap-2.5">
+              <RefreshCw className="w-4 h-4 text-slate-400 group-hover:text-blue-400 transition-colors" />
+              <span className="text-sm font-bold text-slate-300 group-hover:text-white transition-colors">Refresh</span>
+            </div>
+          </button>
         </div>
-        <button
-          onClick={handleRefresh}
-          className="flex items-center gap-2 px-5 py-2.5 bg-slate-700/50 hover:bg-slate-700 border border-slate-600/50 hover:border-slate-500 rounded-xl transition-all duration-200 group"
-        >
-          <RefreshCw className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
-          <span className="text-sm font-semibold text-slate-300 group-hover:text-white transition-colors">Refresh</span>
-        </button>
-      </div>
 
-      {escrowIds.length === 0 ? (
-        <div className="text-center py-16">
-          <div className="inline-flex p-4 bg-slate-700/30 rounded-2xl border border-slate-600/30 mb-6">
-            <FileText className="w-12 h-12 text-slate-500" />
+        {escrowIds.length === 0 ? (
+          <div className="relative overflow-hidden text-center py-16 bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/30 rounded-2xl backdrop-blur-sm">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-700/20 via-transparent to-transparent"></div>
+            <div className="relative">
+              <div className="relative inline-flex mb-6">
+                <div className="absolute inset-0 bg-slate-600/20 rounded-3xl blur-2xl"></div>
+                <div className="relative p-6 bg-gradient-to-br from-slate-700/30 to-slate-800/30 rounded-3xl border border-slate-600/30 backdrop-blur-sm">
+                  <FileText className="w-16 h-16 text-slate-500" />
+                </div>
+              </div>
+              <h3 className="text-xl font-bold text-slate-300 mb-2">No Escrows Found</h3>
+              <p className="text-sm text-slate-500 max-w-sm mx-auto">Create your first escrow transaction to get started with secure payments</p>
+            </div>
           </div>
-          <h3 className="text-lg font-semibold text-slate-300 mb-2">No Escrows Found</h3>
-          <p className="text-sm text-slate-500">Create your first escrow transaction to get started</p>
-        </div>
-      ) : (
-        <div className="space-y-4">
-          {escrowIds.map((id) => (
-            <EscrowCard key={id} escrowId={id} address={address} />
-          ))}
-        </div>
-      )}
+        ) : (
+          <div className="space-y-5">
+            {escrowIds.map((id) => (
+              <EscrowCard key={id} escrowId={id} address={address} />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   )
 }
