@@ -12,7 +12,7 @@ const ESCROW_STATUS = {
   4: { name: 'Resolved', color: 'gray', bgColor: 'bg-slate-500/10', borderColor: 'border-slate-500/30', textColor: 'text-slate-400', icon: CheckCircle, gradientFrom: 'from-slate-500/10', gradientTo: 'to-slate-600/10' },
 }
 
-export default function EscrowCard({ escrowId, address }) {
+export default function EscrowCard({ escrowId, address, displayNumber }) {
   const [actionLoading, setActionLoading] = useState(null)
 
   const { data: escrow, refetch } = useReadContract({
@@ -57,7 +57,7 @@ export default function EscrowCard({ escrowId, address }) {
           <div className="p-2 bg-slate-700/30 rounded-lg border border-slate-600/30">
             <Loader2 className="w-5 h-5 animate-spin text-slate-400" />
           </div>
-          <p className="text-slate-400 font-medium">Loading escrow #{escrowId}...</p>
+          <p className="text-slate-400 font-medium">Loading escrow #{displayNumber || escrowId}...</p>
         </div>
       </div>
     )
@@ -94,7 +94,7 @@ export default function EscrowCard({ escrowId, address }) {
                   <DollarSign className="w-4 h-4 text-slate-400" />
                 </div>
                 <h3 className="text-lg font-bold text-white">
-                  Escrow #{escrowId}
+                  Escrow #{displayNumber || escrowId}
                 </h3>
               </div>
               <div className={`relative flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r ${status.gradientFrom} ${status.gradientTo} border ${status.borderColor} rounded-lg backdrop-blur-sm`}>

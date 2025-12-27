@@ -50,7 +50,9 @@ export default function EscrowList() {
       return
     }
     if (!buyerLoading && !sellerLoading) {
-      const ids = [...new Set([...(buyerEscrows || []), ...(sellerEscrows || [])])].map((id) => Number(id))
+      const ids = [...new Set([...(buyerEscrows || []), ...(sellerEscrows || [])])]
+        .map(Number)
+        .sort((a, b) => a - b) // Sắp xếp theo ID tăng dần (theo thứ tự tạo)
       setEscrowIds(ids)
       setLoading(false)
     }
@@ -220,8 +222,8 @@ export default function EscrowList() {
           </div>
         ) : (
           <div className="space-y-5">
-            {escrowIds.map((id) => (
-              <EscrowCard key={id} escrowId={id} address={address} />
+            {escrowIds.map((id, index) => (
+              <EscrowCard key={id} escrowId={id} address={address} displayNumber={index + 1} />
             ))}
           </div>
         )}

@@ -160,30 +160,6 @@ export default function CreateEscrow() {
           </div>
         )}
 
-        {/* Success Message */}
-        {isApproveSuccess && !isCreated && approveHash && (
-          <div className="mb-6 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl">
-            <div className="flex items-center gap-3 mb-3">
-              <CheckCircle className="w-5 h-5 text-emerald-400 flex-shrink-0" />
-              <span className="text-sm text-emerald-400 font-medium">USDC approved successfully! You can now create escrow.</span>
-            </div>
-            <div className="mt-3 p-3 bg-slate-900/50 border border-slate-700/50 rounded-lg">
-              <p className="text-xs text-slate-400 mb-1.5 font-semibold uppercase tracking-wide">Transaction Hash</p>
-              <div className="flex items-center gap-2">
-                <p className="text-sm font-mono text-emerald-300 break-all">{approveHash}</p>
-                <a
-                  href={`https://testnet.arcscan.app/tx/${approveHash}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-shrink-0 p-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/30 rounded-lg transition-colors"
-                >
-                  <ExternalLink className="w-4 h-4 text-emerald-400" />
-                </a>
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* Form Fields */}
         <div className="space-y-5">
           {/* Seller Address */}
@@ -258,6 +234,30 @@ export default function CreateEscrow() {
             )}
           </div>
         </div>
+
+        {/* Approve Success Message */}
+        {isApproveSuccess && !isCreated && approveHash && (
+          <div className="mt-6 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl">
+            <div className="flex items-center gap-3 mb-3">
+              <CheckCircle className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+              <span className="text-sm text-emerald-400 font-medium">USDC approved successfully! You can now create escrow.</span>
+            </div>
+            <div className="mt-3 p-3 bg-slate-900/50 border border-slate-700/50 rounded-lg">
+              <p className="text-xs text-slate-400 mb-1.5 font-semibold uppercase tracking-wide">Transaction Hash</p>
+              <div className="flex items-center gap-2">
+                <p className="text-sm font-mono text-emerald-300 break-all">{approveHash}</p>
+                <a
+                  href={`https://testnet.arcscan.app/tx/${approveHash}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-shrink-0 p-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/30 rounded-lg transition-colors"
+                >
+                  <ExternalLink className="w-4 h-4 text-emerald-400" />
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Created Success Message */}
         {isCreated && createHash && (
