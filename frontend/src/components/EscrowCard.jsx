@@ -1,7 +1,7 @@
 import { useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import { ESCROW_CONTRACT_ADDRESS, ESCROW_ABI } from '../config/contract'
 import { formatUnits } from 'viem'
-import { CheckCircle, Clock, AlertTriangle, XCircle, User, Users, Calendar, Loader2, DollarSign, Sparkles } from 'lucide-react'
+import { CheckCircle, Clock, AlertTriangle, XCircle, User, Users, Calendar, Loader2, DollarSign, Sparkles, ExternalLink } from 'lucide-react'
 import { useState } from 'react'
 
 const ESCROW_STATUS = {
@@ -204,6 +204,34 @@ export default function EscrowCard({ escrowId, address }) {
                 <Clock className="w-5 h-5 text-yellow-400" />
               </div>
               <p className="text-sm font-bold text-yellow-400">Escrow has timed out</p>
+            </div>
+          </div>
+        )}
+
+        {isSuccess && txHash && (
+          <div className="mb-5 relative overflow-hidden p-4 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-500/30 rounded-xl backdrop-blur-sm">
+            <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-teal-500/5"></div>
+            <div className="relative">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="p-1.5 bg-emerald-500/20 rounded-lg border border-emerald-500/30">
+                  <CheckCircle className="w-5 h-5 text-emerald-400" />
+                </div>
+                <span className="text-sm text-emerald-300 font-bold">Transaction successful!</span>
+              </div>
+              <div className="mt-2 p-3 bg-slate-900/50 border border-slate-700/50 rounded-lg">
+                <p className="text-xs text-slate-400 mb-1.5 font-semibold uppercase tracking-wide">Transaction Hash</p>
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-mono text-emerald-300 break-all">{txHash}</p>
+                  <a
+                    href={`https://testnet.arcscan.app/tx/${txHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-shrink-0 p-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/30 rounded-lg transition-colors"
+                  >
+                    <ExternalLink className="w-4 h-4 text-emerald-400" />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         )}
